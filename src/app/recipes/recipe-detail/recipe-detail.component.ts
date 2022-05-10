@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
@@ -11,6 +13,7 @@ import { RecipeService } from '../recipe.service';
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
+  editMode: boolean = false;
 
   constructor(
     private recipeService: RecipeService,
