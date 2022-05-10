@@ -35,7 +35,7 @@
             class="btn btn-success"
             [disabled]="!f.valid"
           >
-            Add
+            {{ editMode ? "Update" : "Add" }}
           </button>
           <button type="button" style="margin: 1rem" class="btn btn-danger">
             Delete
