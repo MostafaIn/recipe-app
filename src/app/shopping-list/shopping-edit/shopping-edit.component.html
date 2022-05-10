@@ -1,21 +1,48 @@
 <div class="row">
   <div class="col-xs-12">
-    <form>
+    <form (ngSubmit)="onAddItem(f)" #f="ngForm">
       <div class="row">
         <div class="col-sm-5 from-group">
           <label for="name">Name</label>
-          <input type="text" id="name-input" class="form-control" #nameInput />
+          <input
+            type="text"
+            id="name-input"
+            class="form-control"
+            name="name"
+            ngModel
+            required
+          />
         </div>
         <div class="col-sm-2 from-group">
-          <label for="amout">Amout</label>
-          <input type="number" id="amout-input" class="form-control" #amountInput />
+          <label for="amount">Amout</label>
+          <input
+            type="number"
+            id="amout-input"
+            class="form-control"
+            name="amount"
+            ngModel
+            required
+            min="1"
+            pattern="^[1-9]+[0-9]*$"
+          />
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-success" (click)="onAddItem()">Add</button>
-          <button type="button" class="btn btn-danger">Delete</button>
-          <button type="button" class="btn btn-primary">Clear</button>
+          <button
+            type="submit"
+            style="margin: 1rem"
+            class="btn btn-success"
+            [disabled]="!f.valid"
+          >
+            Add
+          </button>
+          <button type="button" style="margin: 1rem" class="btn btn-danger">
+            Delete
+          </button>
+          <button type="button" style="margin: 1rem" class="btn btn-primary">
+            Clear
+          </button>
         </div>
       </div>
     </form>
