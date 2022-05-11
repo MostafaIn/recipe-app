@@ -11,7 +11,9 @@
           >
             Save
           </button>
-          <button type="button" class="btn btn-danger">Cancel</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">
+            Cancel
+          </button>
         </div>
       </div>
       <div class="row">
@@ -85,7 +87,11 @@
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <button type="button" class="btn btn-primary" (click)="onAddIngredient()">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="onAddIngredient()"
+              >
                 Add Ingredient
               </button>
             </div>
