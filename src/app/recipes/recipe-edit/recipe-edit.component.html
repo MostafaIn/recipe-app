@@ -7,6 +7,7 @@
             type="submit"
             class="btn btn-primary"
             style="margin-right: 10px"
+            [disabled]="!recipeForm.valid"
           >
             Save
           </button>
@@ -66,6 +67,7 @@
             class="row"
             *ngFor="let ingCtrl of controls; let i = index"
             [formGroupName]="i"
+            style="margin-top: 10px"
           >
             <div class="col-xs-8">
               <input type="text" class="form-control" formControlName="name" />
@@ -79,6 +81,13 @@
             </div>
             <div class="col-xs-2">
               <button class="btn btn-danger">X</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <button type="button" class="btn btn-primary" (click)="onAddIngredient()">
+                Add Ingredient
+              </button>
             </div>
           </div>
         </div>
