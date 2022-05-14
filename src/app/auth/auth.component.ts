@@ -34,9 +34,9 @@ export class AuthComponent {
           console.log(resData);
           this.isLoading = false;
         },
-        (err) => {
-          console.log(err);
-          this.error = 'An Error Accured!';
+        (errMsg) => {
+          console.log(errMsg);
+          this.error = errMsg;
           this.isLoading = false;
         }
       );
