@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthResponses } from './auth.model';
@@ -19,23 +19,43 @@ export class AuthService {
 
   signUp(email: string, password: string) {
     return this.http
-      .post<AuthResponses>(`${this.apiUrl}?key=${this.apiKey}`, {
+      .post<AuthResponses>(`${this.apiUrl}accounts:signUp?key=${this.apiKey}`, {
         email: email,
         password: password,
         returnSecureToken: true,
       })
-      .pipe(
-        catchError((errorRes) => {
-          let errMsg = 'An unknown erorr is accurred!!';
-          if (!errorRes.error || !errorRes.error.error) {
-            return throwError(errMsg);
-          }
-          switch (errorRes.error.error.message) {
-            case 'EMAIL_EXISTS':
-              errMsg = 'This email exists already!';
-          }
-          return throwError(errMsg);
-        })
-      );
+      .pipe(catchError(this.handleError));
+  }
+
+  login(email: string, password: string) {
+    return this.http
+      .post<AuthResponses>(
+        `${this.apiUrl}accounts:signInWithPassword?key=${this.apiKey}`,
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(errorRes: HttpErrorResponse) {
+    let errMsg = 'An unknown erorr is accurred!!';
+    if (!errorRes.error || !errorRes.error.error) {
+      return throwError(errMsg);
+    }
+    switch (errorRes.error.error.message) {
+      case 'EMAIL_EXISTS':
+        errMsg = 'This email exists already!';
+        break;
+      case 'EMAIL_NOT_FOUND':
+        errMsg = 'This email does not exist!';
+        break;
+      case 'INVALID_PASSWORD':
+        errMsg = 'This password is not correct!';
+        break;
+    }
+    return throwError(errMsg);
   }
 }
