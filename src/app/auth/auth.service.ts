@@ -63,6 +63,10 @@ export class AuthService {
       );
   }
 
+  logout() {
+    this.user.next(null);
+  }
+
   private handleError(errorRes: HttpErrorResponse) {
     let errMsg = 'An unknown erorr is accurred!!';
     if (!errorRes.error || !errorRes.error.error) {
