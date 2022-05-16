@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthResponses } from './auth.model';
 import { catchError, tap } from 'rxjs/operators';
-import { Subject, throwError } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { User } from './user.model';
 
 @Injectable({
@@ -12,7 +12,8 @@ import { User } from './user.model';
 export class AuthService {
   apiUrl: string;
   apiKey: string;
-  user = new Subject<User>();
+  user = new BehaviorSubject<any>(null);
+  token: string = '';
 
   constructor(private http: HttpClient) {
     this.apiUrl = environment.apiUrl;
